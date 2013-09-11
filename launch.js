@@ -17,17 +17,12 @@ BBClient.providers(["https://bbplus-static-registry.aws.af.cm/"], function(provi
   var matched;
 
   var matching = providers.filter(function(p){
-    // TODO remove debug clause
-    return (
-      p.bb_api.fhir_service_url === fhirServiceUrl || 
-      (fhirServiceUrl.match(/localhost/) && p.url === "http://localhost:8080/openid-connect-server")
-    );
+    return (p.bb_api.fhir_service_uri === fhirServiceUrl);
   });
 
+  console.log(matching);
   if (matching.length === 1) {
     matched = matching[0];
-    //TODO remove debug clause
-    matched.bb_api.fhir_service_uri = fhirServiceUrl;
   } else if (matching.length === 0) {
     matched = BBClient.noAuthFhirProvider(fhirServiceUrl);
   } else {
