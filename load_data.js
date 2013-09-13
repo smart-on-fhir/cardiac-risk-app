@@ -22,7 +22,7 @@
         var labs = labs_result[0];
         console.log(patient, labs);
 
-        gender = bySystem(patient.gender, "http://hl7.org/fhir/v3/AdministrativeGender");
+        var gender = patient.gender.coding[0];
           gender = gender.code == 'M' ? 'male' : 'female';
 
           dob = new XDate(patient.birthDate);
@@ -124,14 +124,5 @@
     }
     throw "Unanticipated hsCRP units: " + v.valueQuantity.units;
   };
-
-  function bySystem(codeable, system) {
-    var matches = codeable.coding.filter(function(c){
-      return (c.system === system);
-    })
-    if (matches.length == 0) return null;
-    return matches[0];
-  }
-
 
 })(window);
