@@ -20,6 +20,7 @@
       $.when(pt, labs).done(function(patient, labs_result){
 
         var labs = labs_result[0];
+        var byCodes = fhirClient.byCodes(labs, 'name');
         console.log(patient, labs);
 
         var gender = patient.gender.coding[0];
@@ -31,24 +32,10 @@
           var fname = patient.name[0].given.join(" "),
           lname = patient.name[0].family.join(" ");
 
-          function byLoinc(){
-            var loincs = [];
-            for (var i=0;i<arguments.length;i++){
-              loincs.push(arguments[i]);
-            }
-            var ret = [];
-            $.each(labs, function(i,l){
-              var loinc = bySystem(l.name, 'http://loinc.org');
-                if (loinc && loincs.indexOf(loinc.code) !== -1) {
-                  ret.push(l);
-                }
-            });
-            return ret;
-          };
 
-          var hscrp = byLoinc("30522-7");
-          var cholesterol = byLoinc("14647-2", "2093-3");
-          var hdl = byLoinc("2085-9");
+          var hscrp = byCodes("30522-7");
+          var cholesterol = byCodes("14647-2", "2093-3");
+          var hdl = byCodes("2085-9");
 
           var missingData = [];
           if (hscrp.length == 0) {
@@ -77,9 +64,9 @@
           p.gender={value:gender};
           p.givenName={value:fname};
           p.familyName={value:lname};
-          p.hsCRP={value:hscrp_in_mg_per_l(hscrp[0])};
-          p.cholesterol={value:cholesterol_in_mg_per_dl(cholesterol[0])};
-          p.HDL={value:cholesterol_in_mg_per_dl(hdl[0])};
+          p.hsCRP={value:hscrp_in_mg_per_l(hscrp[0].component)};
+          p.cholesterol={value:cholesterol_in_mg_per_dl(cholesterol[0].component)};
+          p.HDL={value:cholesterol_in_mg_per_dl(hdl[0].component)};
           p.LDL = {value:p.cholesterol.value-p.HDL.value};
 
           ret.resolve(p);
