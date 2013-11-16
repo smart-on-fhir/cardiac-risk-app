@@ -5,15 +5,15 @@
     BBClient.ready(function(fhirClient){
 
       var pt = fhirClient.get({
-        resource: 'patient',
+        resource: 'Patient',
         id: fhirClient.patientId
       });
 
       var labs = fhirClient.search({
-        resource: 'observation',
+        resource: 'Observation',
         searchTerms: {
-          subject: 'patient/@'+fhirClient.patientId,
-          'name:anyns' : '30522-7,14647-2,2093-3,2085-9' 
+          'subject:Patient': fhirClient.patientId,
+          'name' : '30522-7,14647-2,2093-3,2085-9' 
         }
       });
 
