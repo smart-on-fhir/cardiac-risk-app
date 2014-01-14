@@ -64,9 +64,9 @@
           p.gender={value:gender};
           p.givenName={value:fname};
           p.familyName={value:lname};
-          p.hsCRP={value:hscrp_in_mg_per_l(hscrp[0].component)};
-          p.cholesterol={value:cholesterol_in_mg_per_dl(cholesterol[0].component)};
-          p.HDL={value:cholesterol_in_mg_per_dl(hdl[0].component)};
+          p.hsCRP={value:hscrp_in_mg_per_l(hscrp[0])};
+          p.cholesterol={value:cholesterol_in_mg_per_dl(cholesterol[0])};
+          p.HDL={value:cholesterol_in_mg_per_dl(hdl[0])};
           p.LDL = {value:p.cholesterol.value-p.HDL.value};
 
           ret.resolve(p);
