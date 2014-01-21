@@ -13,7 +13,7 @@
         resource: 'Observation',
         searchTerms: {
           'subject:Patient': fhirClient.patientId,
-          'name' : '30522-7,14647-2,2093-3,2085-9' 
+          'name' : '30522-7,14647-2,2093-3,2085-9,8480-6' 
         }
       });
 
@@ -36,6 +36,7 @@
           var hscrp = byCodes("30522-7");
           var cholesterol = byCodes("14647-2", "2093-3");
           var hdl = byCodes("2085-9");
+          var systolic = byCodes("8480-6");
 
           var missingData = [];
           if (hscrp.length == 0) {
@@ -47,6 +48,20 @@
           if (hdl.length == 0) {
             missingData = missingData.concat(["HDL"]);
           }
+
+          // default logic for demonstration purposes
+          if (systolic.length == 0) {
+            systolic = "120";
+          } else {
+            systolic = systolic[0].valueQuantity.value;
+            if (systolic < 105) {
+              systolic = 105
+            }
+            if (systolic > 200) {
+              systolic = 200;
+            }
+          }
+
           if (missingData.length > 0) {
             var missingDataMessage = "No results (";
               var delimiter = "";
@@ -68,6 +83,7 @@
           p.cholesterol={value:cholesterol_in_mg_per_dl(cholesterol[0])};
           p.HDL={value:cholesterol_in_mg_per_dl(hdl[0])};
           p.LDL = {value:p.cholesterol.value-p.HDL.value};
+          p.sbp = {value:systolic};
 
           ret.resolve(p);
       });
@@ -78,7 +94,6 @@
 
   function defaultPatient(){
     return {
-      sbp: {value: 120},
       smoker_p: {value: false},
       fx_of_mi_p: {value: false}
     }
