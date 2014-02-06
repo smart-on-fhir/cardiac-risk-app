@@ -64,13 +64,14 @@
 
           if (missingData.length > 0) {
             var missingDataMessage = "No results (";
-              var delimiter = "";
-              for(var i = 0; i < missingData.length; i++) {
-                missingDataMessage += delimiter + missingData[i];
-                delimiter = ", ";
-              }
-      missingDataMessage += ") for " + fname + " " + lname + ".";
-      alert(missingDataMessage);
+            var delimiter = "";
+            for(var i = 0; i < missingData.length; i++) {
+              missingDataMessage += delimiter + missingData[i];
+              delimiter = ", ";
+            }
+            missingDataMessage += ") for " + fname + " " + lname + ".";
+            alert(missingDataMessage);
+            return ret.reject();
           }
 
           p = defaultPatient();
