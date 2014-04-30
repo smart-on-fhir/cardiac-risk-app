@@ -2,25 +2,18 @@
   window.extractData = function() {
     var ret = $.Deferred();
 
-    BBClient.ready(function(fhirClient){
+    FHIR.oauth2.ready(function(smart){
 
-      var pt = fhirClient.get({
-        resource: 'Patient',
-        id: fhirClient.patientId
-      });
+      var pt = smart.Patient.read();
 
-      var labs = fhirClient.search({
-        resource: 'Observation',
-        searchTerms: {
-          'subject:Patient': fhirClient.patientId,
-          'name' : '30522-7,14647-2,2093-3,2085-9,8480-6' 
-        }
-      });
+      var labs = smart.Observation.where
+                .nameIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
+                .search();
 
       $.when(pt, labs).done(function(patient, labs_result){
 
         var labs = labs_result[0];
-        var byCodes = fhirClient.byCodes(labs, 'name');
+        var byCodes = smart.byCodes(labs, 'name');
         console.log(patient, labs);
 
         var gender = patient.gender.coding[0];
@@ -88,7 +81,7 @@
 
           ret.resolve(p);
       });
-      console.log("FhirClient created", fhirClient);
+      console.log("FhirClient created", smart);
     });
     return ret.promise();
   };
