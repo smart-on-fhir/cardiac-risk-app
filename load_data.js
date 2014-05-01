@@ -4,9 +4,11 @@
 
     FHIR.oauth2.ready(function(smart){
 
-      var pt = smart.Patient.read();
+      var patient = smart.context.patient;
 
-      var labs = smart.Observation.where
+      var pt = patient.read();
+
+      var labs = patient.Observation.where
                 .nameIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
                 .search();
 
