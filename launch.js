@@ -1,4 +1,4 @@
-var fhirServiceUrl = getParameterByName("fhirServiceUrl");
+var fhirServiceUrl = getParameterByName("fhir_service_url");
 
 var client = {
   "client_name": "SMART Cardiac Risk",
@@ -9,14 +9,15 @@ var client = {
   "response_types": ["token"],
   "grant_types": ["implicit"],
   "token_endpoint_auth_method": "none",
-  "scope":  "summary search"
+  "scope":  "summary search launch/patient launch/id",
+  "access_scope":  "summary search launch/patient launch/id:" + getParameterByName("launch_id")
 };
+
 
 FHIR.oauth2.providers(fhirServiceUrl, function(provider){
   FHIR.oauth2.authorize({
     client: client, 
-    provider: provider,
-    patientId: getParameterByName("patientId")
+    provider: provider
   });
 });
 
