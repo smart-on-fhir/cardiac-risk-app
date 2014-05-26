@@ -4,7 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Cardiac Risk SMART Application</title>
     <script src="../../js/fhir-client.js"></script>
-    <script src="launch.js"></script>
+    <script>
+      FHIR.oauth2.authorize({
+        "client_id": "cardiac_risk",
+        "scope":  "patient/*.read"
+      });
+    </script>
   </head>
   Loading...
 </html>

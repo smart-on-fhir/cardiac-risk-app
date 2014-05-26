@@ -1,24 +1,15 @@
-var fhirServiceUrl = getParameterByName("fhir_service_url");
+var fhirServiceUrl = getParameterByName("iss");
 
 var client = {
-  "client_name": "SMART Cardiac Risk",
-  "client_uri": "http://smartplatforms.org/smart-app-gallery/cardiac-risk/",
-  "logo_uri": "http://smartplatforms.org/wp-content/uploads/2012/09/cardiac-risk-216x300.png",
-  "contacts": [ "info@smartplatforms.org" ],
-  "redirect_uris": [ relative("index.html")],
-  "response_types": ["token"],
-  "grant_types": ["implicit"],
-  "token_endpoint_auth_method": "none",
-  "scope":  "summary search launch/patient launch/id",
-  "access_scope":  "summary search launch/patient launch/id:" + getParameterByName("launch_id")
+  "client_id": "cardiac_risk",
+  "redirect_uri": relative("index.html"),
+  "scope":  "patient/*.read launch:" + getParameterByName("launch")
 };
 
 
-FHIR.oauth2.providers(fhirServiceUrl, function(provider){
-  FHIR.oauth2.authorize({
-    client: client, 
-    provider: provider
-  });
+FHIR.oauth2.authorize({
+  server: fhirServiceUrl,
+  client: client
 });
 
 function relative(url){
