@@ -18,8 +18,7 @@
         var byCodes = smart.byCodes(labs, 'name');
         console.log(patient, labs);
 
-        var gender = patient.gender.coding[0];
-          gender = gender.code == 'M' ? 'male' : 'female';
+        var gender = patient.gender;
 
           dob = new XDate(patient.birthDate);
           age = Math.floor(dob.diffYears(new XDate()));
