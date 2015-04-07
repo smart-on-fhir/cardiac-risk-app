@@ -9,13 +9,13 @@
       var pt = patient.read();
 
       var labs = patient.Observation.where
-                .nameIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
+                .codeIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
                 .search();
 
       $.when(pt, labs).done(function(patient, labs_result){
 
         var labs = labs_result[0];
-        var byCodes = smart.byCodes(labs, 'name');
+        var byCodes = smart.byCodes(labs, 'code');
         console.log(patient, labs);
 
         var gender = patient.gender;
