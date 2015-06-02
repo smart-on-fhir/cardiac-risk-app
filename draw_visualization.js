@@ -60,8 +60,9 @@ var reynolds_risk_score = function(p){
 
 var compute_other_scores = function(){
   p2 = $.extend(true, {}, p);
-  p2.sbp.value = 120;
-  score_if_sbp_of_120 = reynolds_risk_score(p2);
+  p2.sbp.value = (p2.sbp.value - 10 >= 0) ? p2.sbp.value - 10 : 0;
+  sbp_10_lower = p2.sbp.value;
+  score_if_sbp_of_10_lower = reynolds_risk_score(p2);
   p2.sbp.value = p.sbp.value; // reset sbp
   p2.smoker_p.value = false;
   score_if_non_smoker = reynolds_risk_score(p2);
@@ -95,7 +96,8 @@ var redraw = function(){
     this.animate({opacity: 1}, 500, '>'); 
   })
   
-  r.score_if_sbp_of_120_text.attr({text: score_if_sbp_of_120+'%'});
+  r.score_if_sbp_of_10_lower_text.attr({text: score_if_sbp_of_10_lower+'%'});
+  r.sbp_10_lower.attr({text: 'if your blood pressure were '+ sbp_10_lower +'mm/Hg'});
   r.score_if_all_optimal_text.attr({text: score_if_all_optimal+'%'});
   r.if_you_quit_set.items[0].attr({text: score_if_non_smoker+'%'});
   
@@ -438,8 +440,8 @@ var draw_visualization = function() {
     y = 750;
     r.g.text(450, y, 'Your risk would be lowered to:').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
 
-    r.score_if_sbp_of_120_text = r.g.text(460, y+16, score_if_sbp_of_120+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
-    r.g.text(450+36, y+16, 'if your blood pressure were 120mm/Hg').attr({'font-size': '14px', 'fill': '#888'})
+    r.score_if_sbp_of_10_lower_text = r.g.text(460, y+16, score_if_sbp_of_10_lower+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
+    r.sbp_10_lower =  r.g.text(450+36, y+16, 'if your blood pressure were ' + sbp_10_lower + 'mm/Hg').attr({'font-size': '14px', 'fill': '#888'})
 
     r.score_if_all_optimal_text = r.g.text(460, y+32, score_if_all_optimal+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
     r.g.text(450+36, y+32, 'if you didn\'t smoke and all levels were optimal').attr({'font-size': '14px', 'fill': '#888'})
