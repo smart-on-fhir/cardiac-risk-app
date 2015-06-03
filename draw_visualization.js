@@ -149,7 +149,7 @@ var draw_visualization = function() {
     r.g.text(162, 100+3, 'DOB:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(192-1, 100, p.birthday.value.toString("yyyy-MM-dd"))
 
-    // draggable for sbp. TODO: fix range: 90 mmHg to 190
+    // draggable for sbp
     var c = null;
     r.g.text(500, 55-24, 'Note: these results are valid for non-diabetics only!').attr({'font-size': '12px', 'font-weight': 'normal', 'fill': "#888"});
 
@@ -184,8 +184,8 @@ var draw_visualization = function() {
 
     // SBP slider
     r.g.text(500+20+10, 55+24+24, 'Systolic blood pressure').attr({'font-size': '16px', 'font-weight': 'normal'});
-    var min_x = 320
-      , max_x = 520
+    var min_x = 415
+      , max_x = 515
       , len_x = max_x - min_x
       , start_value = 100
       , start_value_delta = p.sbp.value - start_value
@@ -193,6 +193,7 @@ var draw_visualization = function() {
       , y = 55+24+24
       , start_r = 13
       , click_r = 15
+      , offset_value = 90
 
     r.path('M'+min_x+' '+y+' L'+max_x+' '+y).attr({'stroke': '#aaa', 'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
     var t = r.g.text(start_x, y, p.sbp.value).attr({'cursor': 'pointer', 'font': '11px Consolas, monospace', 'text-anchor': 'middle', 'font-weight': 'bold', 'fill': '#000'});
@@ -221,14 +222,14 @@ var draw_visualization = function() {
       
       this.attr({cx: cx});
       // this.attr({fill: 'hsl(18, 88, '+ 63 + (cx - min_x) + ')'});
-      this.sbp = Math.round(cx - min_x); 
+      this.sbp = Math.round((cx - min_x) + offset_value); 
       t.attr({
           text: this.sbp,
           x: cx
       });
     },
     up = function () {
-      this.sbp = Math.round(this.attr('cx') - min_x);
+      this.sbp = Math.round((this.attr('cx') - min_x) + offset_value);
       this.animate({r: start_r}, 500, ">");
       p.sbp.value = this.sbp;
       redraw();
