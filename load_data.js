@@ -3,20 +3,14 @@
     var ret = $.Deferred();
 
     FHIR.oauth2.ready(function(smart){
-
-      var patient = smart.context.patient;
-
+      var patient = smart.patient;
       var pt = patient.read();
+      var labs = smart.fetchAll({type: "Observation", query: {code: {$or: ['30522-7', '14647-2', '2093-3', '2085-9', '8480-6']}}});
+      
+                //.codeIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
 
-      var labs = patient.Observation.where
-                .codeIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
-                .search();
-
-      $.when(pt, labs).done(function(patient, labs_result){
-
-        var labs = labs_result[0];
+      $.when(pt, labs).done(function(patient, labs){
         var byCodes = smart.byCodes(labs, 'code');
-        console.log(patient, labs);
 
         var gender = patient.gender;
 
@@ -82,7 +76,6 @@
 
           ret.resolve(p);
       });
-      console.log("FhirClient created", smart);
     });
     return ret.promise();
   };
@@ -99,13 +92,13 @@
   * See values at http://www.amamanualofstyle.com/page/si-conversion-calculator
   */
   cholesterol_in_mg_per_dl = function(v){
-    if (v.valueQuantity.units === "mg/dL"){
+    if (v.valueQuantity.unit === "mg/dL"){
       return parseFloat(v.valueQuantity.value);
     }
-    else if (v.valueQuantity.units === "mmol/L"){
+    else if (v.valueQuantity.unit === "mmol/L"){
       return parseFloat(v.valueQuantity.value)/ 0.026;
     }
-    throw "Unanticipated cholesterol units: " + v.valueQuantity.units;
+    throw "Unanticipated cholesterol units: " + v.valueQuantity.unit;
   };
 
   /**
@@ -113,10 +106,10 @@
   * See values at http://www.amamanualofstyle.com/page/si-conversion-calculator
   */
   hscrp_in_mg_per_l = function(v){
-    if (v.valueQuantity.units === "mg/L"){
+    if (v.valueQuantity.unit === "mg/L"){
       return parseFloat(v.valueQuantity.value);
     }
-    else if (v.valueQuantity.units === "mmol/L"){
+    else if (v.valueQuantity.unit === "mmol/L"){
       return parseFloat(v.valueQuantity.value.value)/ 0.10;
     }
     throw "Unanticipated hsCRP units: " + v.valueQuantity.units;
