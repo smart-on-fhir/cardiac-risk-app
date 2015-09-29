@@ -5,7 +5,7 @@
     FHIR.oauth2.ready(function(smart){
       var patient = smart.patient;
       var pt = patient.read();
-      var labs = smart.fetchAll({type: "Observation", query: {code: {$or: ['30522-7', '14647-2', '2093-3', '2085-9', '8480-6']}}});
+      var labs = smart.patient.api.fetchAll({type: "Observation", query: {code: {$or: ['30522-7', '14647-2', '2093-3', '2085-9', '8480-6']}}});
       
                 //.codeIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
 
