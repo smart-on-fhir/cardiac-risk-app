@@ -112,7 +112,7 @@
     else if (v.valueQuantity.unit === "mmol/L"){
       return parseFloat(v.valueQuantity.value.value)/ 0.10;
     }
-    throw "Unanticipated hsCRP units: " + v.valueQuantity.units;
+    throw "Unanticipated hsCRP units: " + v.valueQuantity.unit;
   };
 
 })(window);
