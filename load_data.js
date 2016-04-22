@@ -5,9 +5,9 @@
     FHIR.oauth2.ready(function(smart){
       var patient = smart.patient;
       var pt = patient.read();
-      var labs = smart.patient.api.fetchAll({type: "Observation", query: {code: {$or: ['30522-7', '14647-2', '2093-3', '2085-9', '8480-6']}}});
-      
-                //.codeIn('30522-7', '14647-2', '2093-3', '2085-9', '8480-6')
+      var labs = smart.patient.api.fetchAll({type: "Observation", query: {code: {$or: ['http://loinc.org|30522-7',
+           'http://loinc.org|14647-2', 'http://loinc.org|2093-3',
+           'http://loinc.org|2085-9', 'http://loinc.org|8480-6']}}});
 
       $.when(pt, labs).done(function(patient, labs){
         var byCodes = smart.byCodes(labs, 'code');
