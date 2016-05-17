@@ -7,7 +7,9 @@ A port of the [Cardiac Risk Visualization SMART Application](https://github.com/
 
 From a console in the project directory, execute:
 
-```gradlew jettyRun```
+```npm install```
+
+Next, serve the app content as static files using your favorite web server software.
 
 # Public Demo #
 See app in [SMART's Gallery](https://gallery.smarthealthit.org/boston-childrens-hospital/cardiac-risk)
