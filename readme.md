@@ -9,7 +9,9 @@ From a console in the project directory, execute:
 
 ```npm install```
 
-Next, serve the app content as static files using your favorite web server software.
+Next, serve the app content as static files using `http-server` or equivalent:
+
+```npm run serve```
 
 # Public Demo #
 See app in [SMART's Gallery](https://gallery.smarthealthit.org/boston-childrens-hospital/cardiac-risk)
