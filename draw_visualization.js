@@ -31,7 +31,7 @@ var reynolds_risk_score = function(p){
       'fx_of_mi': 0.541
     }
   }
-  
+
   var b1 = params.age          * (p.gender.value==='female' ? p.age.value : Math.log(p.age.value))
     , b2 = params.sbp          * Math.log(p.sbp.value)
     , b3 = params.hsCRP        * Math.log(p.hsCRP.value)
@@ -53,7 +53,7 @@ var reynolds_risk_score = function(p){
       , b = Math.pow(0.8990, a)
       , c = 1 - b
       , d = c * 100
-      , result = (1 - Math.pow(0.8990,  (Math.exp(B-33.097)))) * 100            
+      , result = (1 - Math.pow(0.8990,  (Math.exp(B-33.097)))) * 100
   }
   return Math.round((result < 10 ? result.toPrecision(1) : result.toPrecision(2)))
 }
@@ -91,20 +91,20 @@ var p = {
 var redraw = function(){
   var score = reynolds_risk_score(p);
   compute_other_scores();
-  r.score_text.animate({opacity: 0}, 500, '>', function(){ 
+  r.score_text.animate({opacity: 0}, 500, '>', function(){
     this.attr({text: score+'%'});
-    this.animate({opacity: 1}, 500, '>'); 
+    this.animate({opacity: 1}, 500, '>');
   })
-  
+
   r.score_if_sbp_of_10_lower_text.attr({text: score_if_sbp_of_10_lower+'%'});
   r.sbp_10_lower.attr({text: 'if your blood pressure were '+ sbp_10_lower +'mm/Hg'});
   r.score_if_all_optimal_text.attr({text: score_if_all_optimal+'%'});
   r.if_you_quit_set.items[0].attr({text: score_if_non_smoker+'%'});
-  r.risk_prelude.attr({text: 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') + 
-     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ? 
+  r.risk_prelude.attr({text: 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') +
+     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ?
       'and have ' : 'and don\'t have ') +
       'a family\n history of heart attack before the age of 60\n (one or both parents) your risk over 10 years is:'})
-  
+
   if (p.smoker_p.value === false) {
     r.if_you_quit_set.animate({opacity: 0}, 500, '>');
     r.quit_text_1.attr({text: 'Staying smoke-free'})
@@ -115,7 +115,7 @@ var redraw = function(){
     r.quit_text_2.attr({text: 'can decrease your\nheart disease risk\nby 50% or more'})
   }
 }
-        
+
 var draw_visualization = function() {
     var score = reynolds_risk_score(p);
     p2 = $.extend(true, {}, p); // deep copy needed here
@@ -127,7 +127,7 @@ var draw_visualization = function() {
 
     // set default txtattrs
     r.g.txtattr = {
-      'font-family': 'Calibri, \'Helvetica Neue\', Helvetica, Verdana, sans-serif', 
+      'font-family': 'Calibri, \'Helvetica Neue\', Helvetica, Verdana, sans-serif',
       'font-size': '16px',
       'text-anchor': 'start',
       'fill': '#555'
@@ -136,20 +136,20 @@ var draw_visualization = function() {
     // set up overall layout and text
     // using a 8 column grid on 800px
     var headline = r.g.text(10, 20, 'Bloodwork Cardiology Result').attr({'font-size': '24px'})
-    // r.path("M10 40 L300 40").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
+    // r.path("M10 40 L300 40").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})
 
     // pad in 30px
     r.g.text(30, 55, 'Patient info').attr({'font-size': '18px', 'font-weight': 'bold'})
 
     r.g.text(30, 80+3, 'NAME:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(70, 80, p.givenName.value + ' ' + p.familyName.value).attr({'font-size': '24px', 'font-weight': 'normal'})
-    
+
     r.g.text(30, 100+3, 'GENDER:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(82, 100+2, p.gender.value == 'female' ? 'F' : 'M')
-    
+
     r.g.text(102, 100+3, 'AGE:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(142-1, 100, p.age.value)
-    
+
     r.g.text(162, 100+3, 'DOB:').attr({'fill': '#888', 'font-size': '12px', 'font-weight': '200'});
     r.g.text(192-1, 100, p.birthday.value.toString("yyyy-MM-dd"))
 
@@ -159,8 +159,8 @@ var draw_visualization = function() {
 
     r.circle(500+10, 55, 8)
      .attr({
-       stroke: '#F4804E', 
-       fill: p.smoker_p.value ? '#F4804E' : '#F6F6F6' // use a bg colored fill so hover events don't fire only while mouse in on the stroke  
+       stroke: '#F4804E',
+       fill: p.smoker_p.value ? '#F4804E' : '#F6F6F6' // use a bg colored fill so hover events don't fire only while mouse in on the stroke
      })
      .hover(function(){this.attr({'fill': '#F4804F', 'cursor': 'pointer'})},
             function(){if(!p.smoker_p.value)this.attr({'fill': '#F6F6F6', 'cursor': 'normal'})})
@@ -173,7 +173,7 @@ var draw_visualization = function() {
 
      r.circle(500+10, 55+24, 8)
       .attr({
-        stroke: '#F4804E', 
+        stroke: '#F4804E',
         fill: p.fx_of_mi_p.value ? '#F4804E' : '#F6F6F6'
       })
       .hover(function(){this.attr({'fill': '#F4804F', 'cursor': 'pointer'})},
@@ -192,14 +192,14 @@ var draw_visualization = function() {
       , max_x = 515
       , len_x = max_x - min_x
       , start_value = 100
-      , start_value_delta = p.sbp.value - start_value
-      , start_x = (len_x / 2) + min_x + start_value_delta
+      , offset_value = 90
+      , start_value_delta = p.sbp.value - offset_value
+      , start_x = min_x + start_value_delta
       , y = 55+24+24
       , start_r = 13
       , click_r = 15
-      , offset_value = 90
 
-    r.path('M'+min_x+' '+y+' L'+max_x+' '+y).attr({'stroke': '#aaa', 'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
+    r.path('M'+min_x+' '+y+' L'+max_x+' '+y).attr({'stroke': '#aaa', 'stroke-dasharray': '.', 'stroke-linecap': 'butt'})
     var t = r.g.text(start_x, y, p.sbp.value).attr({'cursor': 'pointer', 'font': '11px Consolas, monospace', 'text-anchor': 'middle', 'font-weight': 'bold', 'fill': '#000'});
     c = r.circle(start_x, y, start_r).attr({
       opacity: .5,
@@ -208,7 +208,7 @@ var draw_visualization = function() {
       stroke: '#F4804E',
       cursor: 'pointer'
     });
-    
+
     var start = function () {
         // storing original coordinates
         this.animate({r: click_r}, 500, ">");
@@ -217,16 +217,16 @@ var draw_visualization = function() {
     },
     move = function (dx, dy) {
       var cx = this.ox + dx;
-      
+
       if (cx < min_x) {
         cx = min_x;
       } else if (cx > max_x) {
         cx = max_x;
       }
-      
+
       this.attr({cx: cx});
       // this.attr({fill: 'hsl(18, 88, '+ 63 + (cx - min_x) + ')'});
-      this.sbp = Math.round((cx - min_x) + offset_value); 
+      this.sbp = Math.round((cx - min_x) + offset_value);
       t.attr({
           text: this.sbp,
           x: cx
@@ -239,9 +239,9 @@ var draw_visualization = function() {
       redraw();
     };
     c.drag(move, start, up);
-    
 
-    r.path("M10 120 L760 120").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
+
+    r.path("M10 120 L760 120").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})
 
     var y = 150;
     r.circle(30, y, 14).attr({'fill': '#F4804E', 'stroke': 'none'});
@@ -249,7 +249,7 @@ var draw_visualization = function() {
     r.g.text(50, y, 'About this test').attr({'font-size': '18px', 'font-weight': 'bold'})
     r.g.text(50, y+20, 'This report evaluates your potential risk of heart disease, heart attack, and stroke.').attr({'fill': '#888'})
       .attr({'font-size': '14px'})
-    
+
     r.path("M10 190 L760 190").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'});
 
     y = 210;
@@ -273,8 +273,8 @@ var draw_visualization = function() {
       , cap_mid_y = y + h/2
       , cap_end_x = cap_x
       , cap_end_y = y + h
-    
-    // make width smaller with space, start x on unit_w multiple 
+
+    // make width smaller with space, start x on unit_w multiple
     r.g.text(x, y-12, title).attr({'font-size': '18px', 'font-weight': 'normal'})
 
     r.rect(x+0,         y, unit_w-space,       h).attr({fill: '#61AFC9', stroke: 'none'});
@@ -290,8 +290,8 @@ var draw_visualization = function() {
     r.g.text(x+unit_w*3, y+h+8, 'High risk of cardiovascular disease').attr({'font-size': '12px', 'font-weight': 'normal'})
     r.g.text(x+unit_w*3, y+h+20, '3 - 10').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
-    r.path('M' + cap_x     + ' ' + cap_y + 
-           'L' + cap_mid_x + ' ' + cap_mid_y + 
+    r.path('M' + cap_x     + ' ' + cap_y +
+           'L' + cap_mid_x + ' ' + cap_mid_y +
            'L' + cap_end_x + ' ' + cap_end_y +
            'z')
            .attr({'fill': '#008EB0', 'stroke': 'none'});
@@ -316,7 +316,7 @@ var draw_visualization = function() {
       , cap_mid_y = y + h/2
       , cap_end_x = cap_x
       , cap_end_y = y + h
-    
+
     r.g.text(x, y-12, title).attr({'font-size': '14px'})
 
     r.rect(x+0,         y, unit_w*18-space,       h).attr({fill: '#A0BE78', stroke: 'none'});
@@ -331,8 +331,8 @@ var draw_visualization = function() {
     r.g.text(x+unit_w*22, y+h+8, 'High').attr({'font-size': '12px', 'font-weight': 'normal'})
     r.g.text(x+unit_w*22, y+h+20, '240+').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
-    r.path('M' + cap_x     + ' ' + cap_y + 
-           'L' + cap_mid_x + ' ' + cap_mid_y + 
+    r.path('M' + cap_x     + ' ' + cap_y +
+           'L' + cap_mid_x + ' ' + cap_mid_y +
            'L' + cap_end_x + ' ' + cap_end_y +
            'z')
            .attr({'fill': '#5E892B', 'stroke': 'none'});
@@ -356,7 +356,7 @@ var draw_visualization = function() {
       , cap_mid_y = y + h/2
       , cap_end_x = cap_x
       , cap_end_y = y + h
-    
+
     r.g.text(x, y-12, title).attr({'font-size': '14px'})
 
     r.rect(x+0,         y, unit_w*10-space,       h).attr({fill: '#DCE6CC', stroke: 'none'});
@@ -380,8 +380,8 @@ var draw_visualization = function() {
     r.g.text(x+unit_w*19, y+h+8, 'Very High').attr({'font-size': '12px', 'font-weight': 'normal'})
     r.g.text(x+unit_w*19, y+h+20, '190+').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
-    r.path('M' + cap_x     + ' ' + cap_y + 
-           'L' + cap_mid_x + ' ' + cap_mid_y + 
+    r.path('M' + cap_x     + ' ' + cap_y +
+           'L' + cap_mid_x + ' ' + cap_mid_y +
            'L' + cap_end_x + ' ' + cap_end_y +
            'z')
            .attr({'fill': '#5E892B', 'stroke': 'none'});
@@ -404,7 +404,7 @@ var draw_visualization = function() {
       , cap_mid_y = y + h/2
       , cap_end_x = cap_x
       , cap_end_y = y + h
-    
+
     r.g.text(x, y-12, title).attr({'font-size': '16px'})
 
     r.rect(x+0,         y, unit_w*4-space,       h).attr({fill: '#A0BE78', stroke: 'none'});
@@ -419,8 +419,8 @@ var draw_visualization = function() {
     r.g.text(x+unit_w*6, y+h+8, 'Protective').attr({'font-size': '12px', 'font-weight': 'normal'})
     r.g.text(x+unit_w*6, y+h+20, '60+').attr({'font-size': '10px', 'font-weight': '200', 'fill': '#888'})
 
-    r.path('M' + cap_x     + ' ' + cap_y + 
-           'L' + cap_mid_x + ' ' + cap_mid_y + 
+    r.path('M' + cap_x     + ' ' + cap_y +
+           'L' + cap_mid_x + ' ' + cap_mid_y +
            'L' + cap_end_x + ' ' + cap_end_y +
            'z')
            .attr({'fill': '#5E892B', 'stroke': 'none'});
@@ -430,14 +430,14 @@ var draw_visualization = function() {
     r.g.text(circle_x, y, parseInt(p.HDL.value)).attr({'font': '16px Consolas, monospace', 'text-anchor': 'middle', 'font-weight': 'normal', 'fill': '#fff'})
 
 
-    r.path("M10 700 L760 700").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
+    r.path("M10 700 L760 700").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})
     r.circle(30, 720, 14).attr({'fill': '#F4804E', 'stroke': 'none'});
     r.g.text(30, 720, '3').attr({'font': '18px Consolas, monospace', 'text-anchor': 'middle', 'font-weight': 'bold', 'fill': '#fff'})
     r.g.text(50, 720, 'Your risk').attr({'font-size': '18px', 'font-weight': 'bold'})
     r.g.text(50+100, 720, 'You show an elevated risk of cardiovascular disease')
       .attr({'font-size': '18px', 'font-weight': 'normal', 'fill': '#888'})
-    r.risk_prelude = r.g.text(50, 780, 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') + 
-     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ? 
+    r.risk_prelude = r.g.text(50, 780, 'If you\'re ' + (p.smoker_p.value ? '' : 'not ') +
+     'a smoker with a blood pressure\n of ' + p.sbp.value + 'mm/Hg ' + (p.fx_of_mi_p.value ?
       'and have ' : 'and don\'t have ') +
       'a family\n history of heart attack before the age of 60\n (one or both parents) your risk over 10 years is:')
       .attr({'font-size': '14px', 'font-weight': 'normal', 'fill': '#888'})
@@ -454,7 +454,7 @@ var draw_visualization = function() {
 
     r.score_if_all_optimal_text = r.g.text(460, y+32, score_if_all_optimal+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
     r.g.text(450+36, y+32, 'if you didn\'t smoke and all levels were optimal').attr({'font-size': '14px', 'fill': '#888'})
-    
+
 
     r.if_you_quit_set.push(
       r.g.text(460, y+48, score_if_non_smoker+'%').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'}),
@@ -490,7 +490,7 @@ var draw_visualization = function() {
     r.g.text(x+540+65, y+12, 'Consider retesting').attr({'font-size': '14px', 'font-weight': 'bold', 'fill': '#555'})
     r.g.text(x+540+65, y+36+8, 'in 1 or 2 weeks to\nexclude a temporary\nspike in blood levels').attr({'font-size': '14px', 'fill': '#888'})
 
-    r.path("M10 980 L760 980").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})        
+    r.path("M10 980 L760 980").attr({'stroke-dasharray': '.', 'stroke-linecap': 'butt'})
     r.g.text(90, 1000, 'Original Design: David McCandless & Stefanie Posavec for Wired Magazine // informationisbeautiful.net')
       .attr({'font-size': '14px', 'fill': '#0088CC'})
       .click(function(e){window.open('http://www.informationisbeautiful.net/2010/visualizing-bloodtests/')})
