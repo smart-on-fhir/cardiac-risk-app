@@ -1,6 +1,7 @@
 {
   "name": "cardiacrisk",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "scripts": {
     "serve": "./node_modules/http-server/bin/http-server -p 8000 -c-1 ."
   },
@@ -8,6 +9,10 @@
     "fhirclient": "^0.1.9"
   },
   "devDependencies": {
-    "http-server": "^0.9.0"
+    "http-server": "^0.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smart-on-fhir/cardiac-risk-app.git"
   }
 }
