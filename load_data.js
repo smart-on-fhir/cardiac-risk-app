@@ -51,6 +51,16 @@
         
         var patient = data[0];
 
+        if (!patient.birthDate) {
+          alert("Unknown patient.birthDate");
+          throw new Error("Unknown patient.birthDate");
+        }
+
+        if (!patient.gender) {
+          alert("Unknown patient.gender");
+          throw new Error("Unknown patient.gender");
+        }
+
         // The labs result is an array of (zero or more) pages. Convert it to
         // flat array of resources.
         var labs = flatten(data[1]);
