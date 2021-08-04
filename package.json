@@ -13,6 +13,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Automate-Medical/cardiac-risk-app.git"
+    "url": "git+https://github.com/smart-on-fhir/cardiac-risk-app.git"
   }
 }
