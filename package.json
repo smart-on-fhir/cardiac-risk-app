@@ -6,13 +6,13 @@
     "serve": "./node_modules/http-server/bin/http-server -p 8000 -c-1 ."
   },
   "dependencies": {
-    "fhirclient": "^0.1.9"
+    "fhirclient": "^2.4.0"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.12.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smart-on-fhir/cardiac-risk-app.git"
+    "url": "git+https://github.com/Automate-Medical/cardiac-risk-app.git"
   }
 }
