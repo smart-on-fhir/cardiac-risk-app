@@ -19,7 +19,12 @@
   function getPatientName(patient) {
     var name  = makeArray(patient.name);
     var fname = makeArray(name[0].given  || "").join(" ");
-    var lname = makeArray(name[0].family || "").join(" ");
+    // in FHIR v3 and above, the family property is a string and not an array
+    if (name[0].family.isArray == true){
+      var lname = makeArray(name[0].family || "").join(" ");
+    } else {
+      var lname = makeArray(name[0].family || "")
+    }
     return {
       given : fname,
       family: lname

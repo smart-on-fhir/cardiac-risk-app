@@ -1,0 +1,32 @@
+{
+    "name": "@types/shot",
+    "version": "4.0.1",
+    "description": "TypeScript definitions for shot",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/shot",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "AJP",
+            "url": "https://github.com/AJamesPhillips",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Simon Schick",
+            "url": "https://github.com/SimonSchick",
+            "githubUsername": "SimonSchick"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/shot"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "eef0e26babede272f5e332b283ce6ddb53a2d3ba8763d9a78274c03c46f4230a",
+    "typeScriptVersion": "3.6"
+}
