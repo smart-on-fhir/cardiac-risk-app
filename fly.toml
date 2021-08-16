@@ -1,6 +1,6 @@
-# fly.toml file generated for quiet-resonance-3767 on 2021-08-04T17:22:39-05:00
+# fly.toml file generated for ancient-meadow-4880 on 2021-08-16T15:58:31-05:00
 
-app = "quiet-resonance-3767"
+app = "divine-meadow-3697"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
