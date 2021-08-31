@@ -1,6 +1,4 @@
-# fly.toml file generated for ancient-meadow-4880 on 2021-08-16T15:58:31-05:00
-
-app = "divine-meadow-3697"
+app = "smart-cardiac-risk"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
