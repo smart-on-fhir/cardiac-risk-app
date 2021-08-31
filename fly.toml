@@ -1,13 +1,15 @@
+# fly.toml file generated for smart-cardiac-risk on 2021-08-31T14:18:56-04:00
+
 app = "smart-cardiac-risk"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
+processes = []
 
 [build]
-  builder = "heroku/buildpacks:20"
+  builder = "heroku/buildpacks:18"
 
 [env]
-  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []
@@ -16,6 +18,7 @@ kill_timeout = 5
 [[services]]
   http_checks = []
   internal_port = 8080
+  processes = ["app"]
   protocol = "tcp"
   script_checks = []
 
