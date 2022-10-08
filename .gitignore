@@ -12,3 +12,5 @@
 .Spotlight-V100
 .Trashes
 node_modules
+
+# fly.toml
