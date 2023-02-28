@@ -9,7 +9,7 @@
     "fhirclient": "^0.1.9"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^14.1.1"
   },
   "repository": {
     "type": "git",
